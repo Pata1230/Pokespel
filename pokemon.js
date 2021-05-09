@@ -1,6 +1,5 @@
   
-document.querySelector("form").addEventListener("submit", (event) => {
-    event.preventDefault();
+
     let inputData = document.querySelector("[data-input]").value;
     fetch("https://pokeapi.co/api/v2/pokemon/" + inputData.trim().toLowerCase())
       .then((response) => response.json())
@@ -21,4 +20,3 @@ document.querySelector("form").addEventListener("submit", (event) => {
           ".message"
         ).innerText = `⚠️ ${inputData} är inte en giltig Pokemon. Försök igen!`;
       });
-  });

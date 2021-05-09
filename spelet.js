@@ -1,8 +1,10 @@
+let paused = false;
+let check = true;
 window.addEventListener('DOMContentLoaded', (event) =>{
-
-
-
+   
     
+
+
   let keysPressed = {}
 
   document.addEventListener('keydown', (event) => {
@@ -94,7 +96,7 @@ window.addEventListener('DOMContentLoaded', (event) =>{
       constructor(grid, color){
           this.grid = grid
           this.body = new Circle(10,10,Math.min(this.grid.width/4, this.grid.height/4), color)
-          this.location = this.grid.blocks[Math.floor(Math.random()*this.grid.blocks.length)]
+          this.location = this.grid.blocks[Math.floor(this.grid.blocks.length)]
       }
       draw(){
         this.control()
@@ -102,7 +104,8 @@ window.addEventListener('DOMContentLoaded', (event) =>{
         this.body.y = this.location.y + this.location.height/2
         this.body.draw()
     }
-      control(){
+      control(){ //movement
+ 
           if(keysPressed['w']){
               this.body.y -= this.grid.height
           }
@@ -114,22 +117,34 @@ window.addEventListener('DOMContentLoaded', (event) =>{
           }
           if(keysPressed['d']){
               this.body.x += this.grid.width
+             
           }
 
-          for(let g = 0;g<this.grid.blocks.length; g++){
+          for(let g = 0;g<this.grid.blocks.length; g++){ //kollar om man försöker gå ut ur griden
+       
+         
               if(this.body.x > this.grid.blocks[g].x){
                   if(this.body.y > this.grid.blocks[g].y){
                       if(this.body.x < this.grid.blocks[g].x+this.grid.blocks[g].width){
                           if(this.body.y < this.grid.blocks[g].y+this.grid.blocks[g].height){
+                              this.location = this.grid.blocks[g];
                               if(this.grid.blocks[g].color != "green"){
-                                  this.location = this.grid.blocks[g]
+                                check = true 
+                               
+                            }
+                                  if(this.grid.blocks[g].color == "green" && check == true){
+                                    console.log("pog2")
+                                    
+                                    GeneratePokemon();
+                                    check = false;
+                                    
                               }
                           }  
                       }  
                   }
-              }
-
-
+              
+                
+                }
           }
 
 
@@ -137,14 +152,33 @@ window.addEventListener('DOMContentLoaded', (event) =>{
 
   }
 
-  let board = new Grid(70,70, "blue")
-  let smith = new Agent(board, "white")
+  let board = new Grid(50,50, "blue")
+  let lad = new Agent(board, "white")
+
  
-  window.setInterval(function(){ 
+  window.setInterval(function(){  //ritar själva griden
 
       board.draw()
-      smith.draw()
-  }, 140) 
+      lad.draw()
+  }, 120)  //framerate
 
   
 })
+function GeneratePokemon(){
+
+    let inputData = 2;
+    fetch("https://pokeapi.co/api/v2/pokemon/" + inputData)
+      .then((response) => response.json())
+      .then((data) => {
+        // Skapa ett nytt image element
+        let sprite = document.createElement("img");
+        // Fyll image elementets URL med data som vi hämtade från PokeAPI
+        sprite.setAttribute("src", data.sprites.front_default);
+        // Lägg till bilden i vårt "gym" (en helt vanlig div)
+        document.querySelector("#pokegym").prepend(sprite);
+        document.querySelector(
+          ".message"
+        ).innerText = `✨ En vild ${data.species.name} dök upp ur det höga gräset!`;
+      })
+      
+}
