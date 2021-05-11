@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', (event) =>{
           this.height = height
           this.width = width
           this.color = color
-          this.xmom = 0
+          this.xmom = 0 
           this.ymom = 0
       }
       draw(){
