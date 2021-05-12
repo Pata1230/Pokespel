@@ -72,7 +72,7 @@ window.addEventListener('DOMContentLoaded', (event) =>{
           for(let q = 0; this.y<game_canvas.height; q++){
               for(let q = 0; this.x<game_canvas.width; q++){
                   let block
-                  if(Math.random() < .91){
+                  if(Math.random() < .8){
                      block = new Rectangle(this.x, this.y, this.height, this.width, color)
                   }else{
                    block = new Rectangle(this.x, this.y, this.height, this.width, "green")
@@ -117,8 +117,21 @@ window.addEventListener('DOMContentLoaded', (event) =>{
           }
           if(keysPressed['d']){
               this.body.x += this.grid.width
-             
           }
+
+          if(keysPressed['W']){
+            this.body.y -= this.grid.height
+        }
+        if(keysPressed['A']){
+            this.body.x -= this.grid.width
+        }
+        if(keysPressed['S']){
+            this.body.y += this.grid.height
+        }
+        if(keysPressed['D']){
+            this.body.x += this.grid.width
+        }
+
 
           for(let g = 0;g<this.grid.blocks.length; g++){ //kollar om man försöker gå ut ur griden
        
@@ -133,7 +146,7 @@ window.addEventListener('DOMContentLoaded', (event) =>{
                                
                             }
                                   if(this.grid.blocks[g].color == "green" && check == true){
-                                    console.log("pog2")
+                                    
                                     
                                     GeneratePokemon();
                                     check = false;
@@ -152,7 +165,7 @@ window.addEventListener('DOMContentLoaded', (event) =>{
 
   }
 
-  let board = new Grid(50,50, "blue")
+  let board = new Grid(50,50, "Chartreuse")
   let lad = new Agent(board, "white")
 
  
@@ -166,7 +179,7 @@ window.addEventListener('DOMContentLoaded', (event) =>{
 })
 function GeneratePokemon(){
 
-    let inputData = 2;
+    let inputData = Math.floor(Math.random(0, 1) * 898);
     fetch("https://pokeapi.co/api/v2/pokemon/" + inputData)
       .then((response) => response.json())
       .then((data) => {
@@ -178,7 +191,7 @@ function GeneratePokemon(){
         document.querySelector("#pokegym").prepend(sprite);
         document.querySelector(
           ".message"
-        ).innerText = `✨ En vild ${data.species.name} dök upp ur det höga gräset!`;
+        ).innerText = ` En vild ${data.species.name} dök upp ur det höga gräset!`;
       })
       
 }

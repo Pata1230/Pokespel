@@ -1,5 +1,58 @@
+*{
+    margin:0;
+    font-family: 'Lato', sans-serif;
+    font-size: 5vh;
+}
 
+#game{
+    
+    width:100%;
+    height: 100%;
+}
+.message{
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+#pokegym{
+    margin-top: 10%;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    flex-wrap: wrap;
+}
+header{
+
+    height: 15%;
+    width: 100%;
+    background-color:BlueViolet;
+    display: flex;
+    justify-content: space-evenly;
   
+    font-size: 5vh;
+
+
+}
+.grid{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.forest{
+   
+    height: 100%;
+    background-image: url(https://c4.wallpaperflare.com/wallpaper/503/189/157/pokemon-video-games-pixel-art-pixels-wallpaper-preview.jpg);
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+footer{
+    height: 15%;
+    width: 100%;
+    background-color: BlueViolet;
+    display: flex;
+    justify-content: space-evenly;
+  
+    font-size: 5vh;
+}
 
 
   
