@@ -1,4 +1,4 @@
-let paused = false;
+
 let check = true;
 window.addEventListener('DOMContentLoaded', (event) =>{
    
