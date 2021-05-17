@@ -18,45 +18,45 @@ window.addEventListener('DOMContentLoaded', (event) =>{
   let game_canvas = document.getElementById("game");
   let game_canvas_context = game_canvas.getContext('2d');
 
-  game_canvas.style.background = "#000000"
+  game_canvas.style.background = "#000000";
 
 
   class Rectangle {
       constructor(x, y, height, width, color) {
-          this.x = x
-          this.y = y
-          this.height = height
-          this.width = width
-          this.color = color
-          this.xmom = 0 
-          this.ymom = 0
+          this.x = x;
+          this.y = y;
+          this.height = height;
+          this.width = width;
+          this.color = color;
+          this.xmom = 0 ;
+          this.ymom = 0;
       }
       draw(){
-          game_canvas_context.lineWidth = 1
-          game_canvas_context.fillStyle = this.color
-          game_canvas_context.strokeStyle = "black"
-          game_canvas_context.fillRect(this.x, this.y, this.width, this.height)
-          game_canvas_context.strokeRect(this.x, this.y, this.width, this.height)
+          game_canvas_context.lineWidth = 1 ;
+          game_canvas_context.fillStyle = this.color;
+          game_canvas_context.strokeStyle = "black";
+          game_canvas_context.fillRect(this.x, this.y, this.width, this.height);
+          game_canvas_context.strokeRect(this.x, this.y, this.width, this.height);
       }
 
   }
   class Circle{
       constructor(x, y, radius, color, xmom = 0, ymom = 0){
-          this.x = x
-          this.y = y
-          this.radius = radius
-          this.color = color
-          this.xmom = xmom
-          this.ymom = ymom
-          this.lens = 0
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.color = color;
+          this.xmom = xmom;
+          this.ymom = ymom;
+          this.lens = 0;
       }       
        draw(){
-          game_canvas_context.lineWidth = 0
-          game_canvas_context.strokeStyle = this.color
+          game_canvas_context.lineWidth = 0;
+          game_canvas_context.strokeStyle = this.color;
           game_canvas_context.beginPath();
-          game_canvas_context.arc(this.x, this.y, this.radius, 0, (Math.PI*2), true)
-          game_canvas_context.fillStyle = this.color
-          game_canvas_context.fill()
+          game_canvas_context.arc(this.x, this.y, this.radius, 0, (Math.PI*2), true);
+          game_canvas_context.fillStyle = this.color;
+          game_canvas_context.fill();
           game_canvas_context.stroke(); 
       }
 
@@ -64,30 +64,30 @@ window.addEventListener('DOMContentLoaded', (event) =>{
 
   class Grid{
       constructor(width, height, color){
-          this.width = width
-          this.height = height
-          this.x = 0
-          this.y = 0
-          this.blocks = []
+          this.width = width;
+          this.height = height;
+          this.x = 0;
+          this.y = 0;
+          this.blocks = [];
           for(let q = 0; this.y<game_canvas.height; q++){
               for(let q = 0; this.x<game_canvas.width; q++){
-                  let block
+                  let block;
                   if(Math.random() < .8){
-                     block = new Rectangle(this.x, this.y, this.height, this.width, color)
+                     block = new Rectangle(this.x, this.y, this.height, this.width, color);
                   }else{
-                   block = new Rectangle(this.x, this.y, this.height, this.width, "green")
+                   block = new Rectangle(this.x, this.y, this.height, this.width, "green");
                   }
-                  this.blocks.push(block)
-                  this.x+=this.width
+                  this.blocks.push(block);
+                  this.x+=this.width;
               }
-              this.y+=this.height
-              this.x = 0
+              this.y+=this.height;
+              this.x = 0;
           }
 
       }
       draw(){
           for(let b = 0; b<this.blocks.length; b++){
-              this.blocks[b].draw()
+              this.blocks[b].draw();
           }
       }
   }
@@ -95,41 +95,41 @@ window.addEventListener('DOMContentLoaded', (event) =>{
   class Agent{
       constructor(grid, color){
           this.grid = grid
-          this.body = new Circle(10,10,Math.min(this.grid.width/4, this.grid.height/4), color)
-          this.location = this.grid.blocks[Math.floor(this.grid.blocks.length)]
+          this.body = new Circle(10,10,Math.min(this.grid.width/4, this.grid.height/4), color);
+          this.location = this.grid.blocks[Math.floor(this.grid.blocks.length)];
       }
       draw(){
         this.control()
-        this.body.x = this.location.x + this.location.width/2
-        this.body.y = this.location.y + this.location.height/2
-        this.body.draw()
+        this.body.x = this.location.x + this.location.width/2;
+        this.body.y = this.location.y + this.location.height/2;
+        this.body.draw();
     }
       control(){ //movement
  
           if(keysPressed['w']){
-              this.body.y -= this.grid.height
+              this.body.y -= this.grid.height;
           }
           if(keysPressed['a']){
-              this.body.x -= this.grid.width
+              this.body.x -= this.grid.width;
           }
           if(keysPressed['s']){
-              this.body.y += this.grid.height
+              this.body.y += this.grid.height;
           }
           if(keysPressed['d']){
-              this.body.x += this.grid.width
+              this.body.x += this.grid.width;
           }
 
           if(keysPressed['W']){
-            this.body.y -= this.grid.height
+            this.body.y -= this.grid.height;
         }
         if(keysPressed['A']){
-            this.body.x -= this.grid.width
+            this.body.x -= this.grid.width;
         }
         if(keysPressed['S']){
-            this.body.y += this.grid.height
+            this.body.y += this.grid.height;
         }
         if(keysPressed['D']){
-            this.body.x += this.grid.width
+            this.body.x += this.grid.width;
         }
 
 
@@ -142,7 +142,7 @@ window.addEventListener('DOMContentLoaded', (event) =>{
                           if(this.body.y < this.grid.blocks[g].y+this.grid.blocks[g].height){
                               this.location = this.grid.blocks[g];
                               if(this.grid.blocks[g].color != "green"){
-                                check = true 
+                                check = true ;
                                
                             }
                                   if(this.grid.blocks[g].color == "green" && check == true){
@@ -165,14 +165,14 @@ window.addEventListener('DOMContentLoaded', (event) =>{
 
   }
 
-  let board = new Grid(50,50, "Chartreuse")
-  let lad = new Agent(board, "white")
+  let board = new Grid(50,50, "Chartreuse");
+  let lad = new Agent(board, "white");
 
  
   window.setInterval(function(){  //ritar själva griden
 
-      board.draw()
-      lad.draw()
+      board.draw();
+      lad.draw();
   }, 120)  //framerate
 
   
