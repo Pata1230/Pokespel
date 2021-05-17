@@ -29,7 +29,7 @@ window.addEventListener('DOMContentLoaded', (event) =>{
           this.width = width
           this.color = color
           this.xmom = 0 
-          this.ymom = 0
+          this.ymom = 01
       }
       draw(){
           game_canvas_context.lineWidth = 1

@@ -10,10 +10,12 @@
     height: 100%;
 }
 .message{
+    font-size: 4vh;
     grid-column-start: 2;
     grid-row-start: 1;
 }
 #pokegym{
+    
     margin-top: 10%;
     grid-column-start: 2;
     grid-row-start: 1;
